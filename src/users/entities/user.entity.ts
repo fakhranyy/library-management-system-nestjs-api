@@ -19,11 +19,12 @@ export class User {
   @BeforeInsert()
   async hashPassword(): Promise<void> {
     try {
-      this.password = await bcrypt.hash(this.password, 12);
+      this.password = await bcrypt.hash(this.password, 10);
       this.email = this.email.toLowerCase().trim();
       this.username = this.username.toLowerCase().trim();
     } catch (e) {
-      throw new InternalServerErrorException('there is some errors');
+      console.log(e);
+      throw new InternalServerErrorException();
     }
   }
 }
